@@ -83,7 +83,7 @@ if show_data:
         "Name": ["Apophis", "Bennu", "Didymos", "Psyche", "Vesta"],
         "Diameter (m)": [340, 490, 780, 226000, 525000],
         "Velocity (km/s)": [30.7, 28.0, 23.6, 19.4, 20.3],
-        "Potential Hazard": ["Yes", "Yes", "No", "No", "No"],
+        "Potential Hazard": ["No", "Possibly", "Possibly", "Yes", "Yes"],
         "Closest Approach": ["2029-04-13", "2135-09-25", "2123-11-18", "N/A", "N/A"]
     })
     st.dataframe(df, use_container_width=True)
