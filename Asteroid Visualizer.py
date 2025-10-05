@@ -5,25 +5,21 @@ import math
 import random
 from datetime import date
 
-# ---------------------------
-# PAGE SETUP
-# ---------------------------
 st.set_page_config(page_title="Odyssey Asteroid Simulator", layout="wide", page_icon="☄️")
 st.title("🪐 Odyssey Asteroid Impact Simulator")
 
-# ---------------------------
-# DARK MODE TOGGLE
-# ---------------------------
+
+# DARK MODE 
+
 dark_mode = st.toggle("🌙 Dark Mode", value=False)
 map_tile = "CartoDB dark_matter" if dark_mode else "CartoDB positron"
 
-# ---------------------------
 # LAYOUT
-# ---------------------------
 left, right = st.columns([1.2, 1])
 
 with left:
     st.subheader("🌍 Select Impact Location")
+    st.write("The last clicked area is selected as the impact locat")
     m = folium.Map(location=[20, 0], zoom_start=2, tiles=map_tile)
     st_data = st_folium(m, width=500, height=400)
     location = None
@@ -74,9 +70,8 @@ with right:
     calculate = st.button("🚀 Calculate Impact")
     show_data = st.button("🛰️ View 50 Real Asteroids")
 
-# ---------------------------
-# FIXED ASTEROID DATA
-# ---------------------------
+# ASTEROID DATA
+
 asteroid_dataset = [
     ["(2024 BX1)", 2, 12.4, "2024-01-15", 345000, "No"],
     ["Apophis", 370, 30.7, "2029-04-13", 31000, "Yes"],
@@ -88,11 +83,10 @@ asteroid_dataset = [
     ["2001 FO32", 890, 34.4, "2021-03-21", 2000000, "Yes"],
     ["Didymos", 780, 23, "2123-10-04", 600000, "No"],
     ["Dimorphos", 160, 22, "2123-10-04", 600000, "No"],
-] * 5 # repeats to make 50 entries
+] 
 
-# ---------------------------
+
 # CALCULATE IMPACT
-# ---------------------------
 if calculate:
     st.header("💥 IMPACT RESULT")
     if diameter <= 25:
@@ -103,7 +97,7 @@ if calculate:
     volume = (4 / 3) * math.pi * (radius ** 3)
     mass = density * volume
     velocity_mps = velocity * 1000
-
+#defend earth
     if defend == "Yes" and strategy:
         defense_success = random.random() < 0.65
         if defense_success:
@@ -145,7 +139,7 @@ if calculate:
     else:
         tsunami = "No significant tsunami"
 
-    # Display results in colorful metrics
+    # Display results
     c1, c2, c3 = st.columns(3)
     c1.metric("🌑 Kinetic Energy", f"{KE:.2e} J")
     c2.metric("🌍 Asteroid Mass", f"{mass:.2e} kg")
@@ -167,10 +161,8 @@ if calculate:
         st.success("No major evacuation needed — minor local impact.")
 
     st.info("✅ Simulation complete. Adjust parameters to explore new outcomes.")
-
-# ---------------------------
+    
 # SHOW FIXED ASTEROID DATA
-# ---------------------------
 if show_data:
     st.header("🛰️ 50 Real Asteroids Near Earth")
     st.dataframe(
