@@ -159,7 +159,7 @@ if calculate:
 
 #  SHOW REAL ASTEROID DAta
 if show_data:
-    st.header("🛰️ 50 Real Asteroids Near Earth")
+    st.header("🛰️ 5 Real Asteroids Near Earth")
     df = pd.DataFrame(
         asteroid_dataset,
         columns=[
