@@ -4,13 +4,19 @@ from streamlit_folium import st_folium
 import math
 import random
 import pandas as pd
+
+# ---------------------------
+# 🌟 PAGE SETUP
+# ---------------------------
 st.set_page_config(
     page_title="Odyssey Asteroid Simulator",
     layout="wide",
     page_icon="☄️"
 )
-st.title("🪐 Odyssey Asteroid Impact Simulator
-# DARK MODe
+st.title("🪐 Odyssey Asteroid Impact Simulator")
+
+
+#  DARK MODE
 dark_mode = st.checkbox("🌙 Dark Mode", value=False)
 map_tile = "CartoDB dark_matter" if dark_mode else "CartoDB positron"
 
@@ -59,9 +65,8 @@ with right:
         strategy = st.selectbox("Choose your mitigation strategy", ["Kinetic Impactor", "Gravity Tractor"])
 
     calculate = st.button("🚀 Calculate Impact")
-    show_data = st.button("🛰️ View  Real Asteroids")
+    show_data = st.button("🛰️ View 51 Real Asteroids")
 #  FIXED ASTEROID DATA (51 rows)
-
 asteroid_dataset = [
     ["2024 BX1", 2, 12.4, "2024-01-15", 345000, "N"],
     ["Apophis", 370, 30.7, "2029-04-13", 31000, "Y"],
@@ -110,18 +115,14 @@ asteroid_dataset = [
     ["2018 GE3", 48, 8.0, "2018-04-14", 192000, "N"],
     ["2017 QV1", 15, 11.5, "2017-08-24", 64000, "N"],
     ["2016 AA", 2, 12.0, "2016-01-02", 4300, "N"],
-    ["2015 SO2", 50, 7.5, "2015-09-29", 123000, "N"],
-    ["2014 HQ124", 325, 13.4, "2014-06-08", 2150000, "N"],
-    ["2002 TC11", 95, 10.2, "2002-10-31", 340000, "N"],
-    ["1999 AN10", 800, 17.3, "2027-08-07", 380000, "Y"],
+    ["2015 SO2", 50, 7.5, "2015-09-29", 123000, "N"]
 ]
 
-#  CALCULATE IMPACT-
+#  CALCULATE IMPACT
 if calculate:
     st.header("💥 IMPACT RESULT")
-
     if diameter <= 25:
-        st.success("☁️ The asteroid burned up in the atmosphere. No impact occurred.")
+        st.success("The asteroid burned up in the atmosphere. No impact occurred.")
         st.stop()
 
     radius = diameter / 2
@@ -129,23 +130,25 @@ if calculate:
     mass = density * volume
     velocity_mps = velocity * 1000
 
+    # DEFENSE EARTH
     if defend == "Yes" and strategy:
         defense_success = random.random() < 0.65
         if defense_success:
-            st.success(f"🌍 Defense successful ({strategy}) — the asteroid was deflected!")
+            st.success(f"🌎 Defense successful ({strategy}) — the asteroid was deflected!")
+
             if strategy == "Kinetic Impactor":
                 st.info(
-                    "🛰️ **Kinetic Impactor:** A spacecraft collided with the asteroid, "
-                    "changing its trajectory to avoid Earth."
+                    "🛰️ *Kinetic Impactor:* A spacecraft collided with the asteroid, changing its trajectory "
+                    "just enough to miss Earth. This method relies on momentum transfer."
                 )
             elif strategy == "Gravity Tractor":
                 st.info(
-                    "🪐 **Gravity Tractor:** A spacecraft used gravitational pull "
-                    "to slowly alter the asteroid's orbit away from Earth."
+                    "🪐 *Gravity Tractor:* A spacecraft flew alongside the asteroid, using gravitational attraction "
+                    "to slowly alter its orbit over time, safely steering it away from Earth."
                 )
             st.stop()
         else:
-            st.error(f"🚨 Defense failed — The asteroid hit Earth despite using {strategy}.")
+            st.error(f"Defense failed — The asteroid hit the Earth despite using {strategy}.")
             if strategy == "Kinetic Impactor":
                 velocity_mps *= 0.9
             elif strategy == "Gravity Tractor":
@@ -169,7 +172,7 @@ if calculate:
     else:
         tsunami = "No significant tsunami"
 
-    # Display metrics
+    # DISPLAY RESULTS
     c1, c2, c3 = st.columns(3)
     c1.metric("🌑 Kinetic Energy", f"{KE:.2e} J")
     c2.metric("🌍 Asteroid Mass", f"{mass:.2e} kg")
@@ -185,4 +188,17 @@ if calculate:
         st.warning("Evacuate all areas within 1000 km — global catastrophe likely.")
     elif fatalities == "Millions":
         st.warning("Evacuate coastal and populated regions within 500 km — high danger.")
-    elif fatalities == "Thousands
+    elif fatalities == "Thousands":
+        st.warning("Evacuate nearest cities within 200 km — local destruction possible.")
+    else:
+        st.success("No major evacuation needed — minor local impact.")
+
+    st.info("✅ Simulation complete. Adjust parameters to explore new outcomes.")
+# 🛰️ SHOW FIXED ASTEROID 
+if show_data:
+    st.header("🛰️ 51 Real Asteroids Near Earth")
+    df = pd.DataFrame(
+        asteroid_dataset,
+        columns=["Name / Designation", "Diameter (m)", "Velocity (km/s)", "Close Approach Date", "Miss Distance (km)", "Hazardous (Y/N)"]
+    )
+    st.dataframe(df, hide_index=True, use_container_width=True)
