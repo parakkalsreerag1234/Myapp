@@ -26,9 +26,34 @@ tab_sim, tab_help = st.tabs(["Simulator", "Help"])
 
 with tab_help:
     st.header("How to use the Simulator")
-    st.write("Select impact location, asteroid parameters, then press calculate.")
-    st.write("After calculating, choose a defense strategy within 30 seconds or do nothing.")
-    st.write("Defense has 65% chance to succeed. Results show energy, crater, casualties, tsunami, and safety plan.")
+    st.markdown("""
+**Overview**  
+This simulator estimates asteroid impact effects and demonstrates possible defense strategies.
+
+**Map / Location**
+- Click on the map in the **Simulator** tab to select impact coordinates.
+
+**Asteroid Parameters**
+- **Asteroid Type** — selects typical density. Use *Custom* for your own density.
+- **Diameter (m)** — larger diameter increases mass and kinetic energy.
+- **Speed (km/s)** — energy grows with the square of speed.
+- **Impact Angle (°)** — shallow angle spreads energy; steep angle concentrates damage.
+
+**Defense Strategies**
+- **Kinetic Impactor** — spacecraft hits asteroid to change orbit.
+- **Gravity Tractor** — spacecraft slowly pulls asteroid with gravity.
+- **Nuclear Detonation** — controlled explosion to alter velocity or fragment asteroid.
+- **Laser Ablation** — vaporizes surface to produce small thrust.
+
+**Defense Modal**
+- After pressing **Calculate**, a 30-second timer starts. Choose a strategy or do nothing.
+- **65% chance** of success if a strategy is chosen in time.
+- Successful defense explains the strategy used.
+
+**Impact Results**
+- KE, crater diameter, TNT equivalent, casualties, tsunami, and evacuation plan.
+- All values are educational estimates.
+""")
 
 with tab_sim:
     dark_mode = st.checkbox("Dark Mode", value=False)
