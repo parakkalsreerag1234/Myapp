@@ -4,10 +4,7 @@ from streamlit_folium import st_folium
 import math
 import random
 import pandas as pd
-
-# ---------------------------
-# 🌟 PAGE SETUP
-# ---------------------------
+#  PAGE SETUP
 st.set_page_config(
     page_title="Odyssey Asteroid Simulator",
     layout="wide",
