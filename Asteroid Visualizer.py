@@ -72,6 +72,8 @@ with tab_sim:
 
     with left_col:
         st.subheader("🌍 Select Impact Location")
+        st.write("First switch to dark mode and if you want swiitch back to light mode for lesser error")
+        
         st.write("Click the map to choose impact coordinates (last clicked location will be used).")
         m = folium.Map(location=[20, 0], zoom_start=2, tiles=map_tile)
         st_data = st_folium(m, width=520, height=420)
