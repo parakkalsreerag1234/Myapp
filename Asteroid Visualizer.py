@@ -23,6 +23,7 @@ left, right = st.columns([1.2, 1])
 with left:
     st.subheader("🌍 Select Impact Location")
     st.write(" After calculating or viewing asteroid data please go down a to see the data")
+    st.warning("Dark mode recommended for less issues ")
     st.write("Click anywhere on the map — the last clicked area is selected as the impact location.")
     m = folium.Map(location=[20, 0], zoom_start=2, tiles=map_tile)
     st_data = st_folium(m, width=500, height=400)
